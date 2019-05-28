@@ -1,0 +1,9 @@
+# SpringCloudResourceServer
+
+Use system environment variables:
+
+- CONFIG_SERVER_HOST
+- CONFIG_SERVER_PORT
+- RESOURCE_SERVER_PORT
+- BCRYPT_PASSWORD_ENCODER_ROUNDS_NUMBER
+- JWT_SIGNING_KEY
