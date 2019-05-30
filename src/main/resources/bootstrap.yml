@@ -1,5 +1,13 @@
 spring:
+  application:
+    name: resource
   cloud:
-    config:
-      name: resourceServer
-      uri: http://${CONFIG_SERVER_HOST}:${CONFIG_SERVER_PORT}
+    consul:
+      host: ${CONSUL_HOST:localhost}
+      port: ${CONSUL_PORT:8500}
+      discovery:
+        instance-id: ${spring.application.name}:${random.value}
+      config:
+        enabled: true
+        prefix: consul_kv_init_data/master
+        format: FILES
