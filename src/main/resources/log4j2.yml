@@ -30,12 +30,13 @@ configuration:
 
   loggers:
     root:
-      level: warn
+      level: info
       appenderRef:
         ref: consoleAppender
     logger:
       name: edu.practice.resourceServer
       level: error
+      additivity: false
       appenderRef:
         - ref: consoleAppender
         - ref: fileAppender
