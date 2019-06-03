@@ -6,6 +6,9 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import lombok.*;
 
 import javax.persistence.*;
+
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.UUID;
 
 @Entity
@@ -41,6 +44,18 @@ public class ApplicationUser {
     @Getter
     @Setter
     private boolean enabled;
+
+    @OneToMany(mappedBy = "author")
+    @Builder.Default
+    @Getter
+    @Setter(AccessLevel.NONE)
+    private Collection<Note> ownNotes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "editors")
+    @Builder.Default
+    @Getter
+    @Setter(AccessLevel.NONE)
+    private Collection<Note> editNotes = new HashSet<>();
 
     @JsonPOJOBuilder(withPrefix = "")
     public static class ApplicationUserBuilder {
