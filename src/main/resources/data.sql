@@ -1,0 +1,1 @@
+INSERT INTO users (uuid, role, username, password, enabled) VALUES (random_uuid(), 'ADMINISTRATOR', 'Administrator', '$2a$12$nDd8eFp6cX7ydeXXcqnMn.iS41eAfIUPtaM9M0B10FqFWJwuL.Y2m', TRUE); --password: administrator_password

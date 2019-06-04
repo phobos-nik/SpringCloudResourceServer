@@ -35,11 +35,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
-                .authorizeRequests()
-                        .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .anyRequest().authenticated()
+                .sessionManagement()
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                         .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests()
+                        .antMatchers("/actuator/**").permitAll()
+                        .antMatchers(HttpMethod.POST, "/api/users").permitAll()                        
+                        .anyRequest().authenticated();
     }
 
     @Override
