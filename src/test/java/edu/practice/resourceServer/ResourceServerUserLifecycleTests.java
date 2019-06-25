@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.LinkedMultiValueMap;
@@ -17,7 +18,6 @@ import org.springframework.util.MultiValueMap;
 import edu.practice.resourceServer.model.entity.ApplicationRole;
 import edu.practice.resourceServer.model.entity.ApplicationUser;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @SpringBootTest(classes = ResourceServerApplication.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+@ActiveProfiles("test")
 class ResourceServerUserLifecycleTests {
 
     @Autowired
@@ -95,8 +96,11 @@ class ResourceServerUserLifecycleTests {
 
     @Order(2)
     @Test
-    void userGetTest() {
-
+    void userGetTest() throws Exception {
+        mockMvc
+                .perform(
+                    get("/users"))
+                .andExpect(status().isForbidden());
     }
 
     @Order(3)
