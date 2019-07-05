@@ -2,7 +2,7 @@ package edu.practice.resourceServer.model.service.impl;
 
 import edu.practice.resourceServer.model.entity.ApplicationUser;
 import edu.practice.resourceServer.model.entity.UserDetailsImpl;
-import edu.practice.resourceServer.model.repository.ApplicationUserInternalRepository;
+import edu.practice.resourceServer.model.repository.ApplicationUserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -19,13 +19,13 @@ import java.util.Optional;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private ApplicationUserInternalRepository applicationUserInternalRepository;
+    private ApplicationUserRepository applicationUserRepository;
 
     private MessageSource messageSource;
 
     @Autowired
-    public UserDetailsServiceImpl(ApplicationUserInternalRepository applicationUserInternalRepository, MessageSource messageSource) {
-        this.applicationUserInternalRepository = applicationUserInternalRepository;
+    public UserDetailsServiceImpl(ApplicationUserRepository applicationUserRepository, MessageSource messageSource) {
+        this.applicationUserRepository = applicationUserRepository;
         this.messageSource = messageSource;
     }
 
@@ -35,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Example<ApplicationUser> persistedApplicationUserExample = Example.of(
                 applicationUserProbe,
                 ExampleMatcher.matching().withIgnoreCase("username"));
-        Optional<ApplicationUser> persistedUserOptional = applicationUserInternalRepository.findOne(persistedApplicationUserExample);
+        Optional<ApplicationUser> persistedUserOptional = applicationUserRepository.findOne(persistedApplicationUserExample);
         if (!persistedUserOptional.isPresent())
             throw new UsernameNotFoundException(
                 messageSource.getMessage(

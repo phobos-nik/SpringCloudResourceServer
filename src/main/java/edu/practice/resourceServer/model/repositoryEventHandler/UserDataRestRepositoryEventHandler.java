@@ -1,30 +1,30 @@
 package edu.practice.resourceServer.model.repositoryEventHandler;
 
+import edu.practice.resourceServer.model.entity.ApplicationUser;
+import edu.practice.resourceServer.model.repository.ApplicationUserRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.HandleBeforeSave;
 import org.springframework.data.rest.core.annotation.RepositoryEventHandler;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import edu.practice.resourceServer.model.entity.ApplicationUser;
-import edu.practice.resourceServer.model.repository.ApplicationUserInternalRepository;
-
 @RepositoryEventHandler(ApplicationUser.class)
 public class UserDataRestRepositoryEventHandler {
 
-    private ApplicationUserInternalRepository applicationUserInternalRepository;
+    private ApplicationUserRepository applicationUserRepository;
     private PasswordEncoder passwordEncoder;    
 
     @Autowired
-    public UserDataRestRepositoryEventHandler(  ApplicationUserInternalRepository applicationUserInternalRepository,
+    public UserDataRestRepositoryEventHandler(ApplicationUserRepository applicationUserRepository,
                                                 PasswordEncoder passwordEncoder) {
-        this.applicationUserInternalRepository = applicationUserInternalRepository;
+        this.applicationUserRepository = applicationUserRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     @HandleBeforeSave
     public void beforeApplicationUserSaveHandler(ApplicationUser applicationUser) {
         if (applicationUser.getPassword() == null || applicationUser.getPassword().equals("")) {
-            final ApplicationUser storedUser = applicationUserInternalRepository.getOne(applicationUser.getUuid());
+            final ApplicationUser storedUser = applicationUserRepository.getOne(applicationUser.getUuid());
             applicationUser.setPassword(storedUser.getPassword());
         }
 

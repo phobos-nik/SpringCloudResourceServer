@@ -11,9 +11,10 @@ import javax.transaction.Transactional;
 
 @RepositoryRestResource(path = "users", collectionResourceRel = "users")
 @Transactional
-public interface ApplicationUserDataRestRepository extends JpaRepository<ApplicationUser, UUID> {
-
+public interface ApplicationUserRepository extends JpaRepository<ApplicationUser, UUID> {
+    
     @Override
     @PreAuthorize("permitAll()")
     <S extends ApplicationUser> S save(final S entity);
+    
 }

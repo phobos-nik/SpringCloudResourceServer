@@ -8,6 +8,6 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import edu.practice.resourceServer.model.entity.Note;
 
 @RepositoryRestResource(path = "notes", collectionResourceRel = "notes")
-public interface NoteDataRestRepository extends JpaRepository<Note, UUID> {
+public interface NoteRepository extends JpaRepository<Note, UUID> {
     
 }
