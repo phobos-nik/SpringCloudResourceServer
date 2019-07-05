@@ -44,15 +44,4 @@ class ResourceServerApplicationTests {
                 ObjectNode.class)
             .get("status").asText());
     }
-
-    @Test
-    void unsecuredHelloResponds() throws Exception {
-        final MvcResult mvcResult = mockMvc.perform(
-                get("/test/hello")
-                .param("name", "world")
-                .accept(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk())
-            .andReturn();
-        assertEquals("hello world", mvcResult.getResponse().getContentAsString());
-    }
 }
